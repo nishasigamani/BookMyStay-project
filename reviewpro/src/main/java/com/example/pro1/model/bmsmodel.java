@@ -1,10 +1,15 @@
 package com.example.pro1.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,17 +18,28 @@ public class bmsmodel
 {
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
-	@Column(name="TYPE")
     private String type;
-	@Column(name="LOCATION")
     private String location;
-	@Column(name="AMENITIES")
     private String amenities;
-	@Column(name="DESCRIPTION")
     private String description;
-	@Column(name="PRICE RANGE")
-    private String prra;
+    private String pricerange;
+	public String getPricerange() {
+		return pricerange;
+	}
+	public void setPricerange(String pricerange) {
+		this.pricerange = pricerange;
+	}
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fk_id",referencedColumnName="id")
+	private List<calender>calender;
+	public List<calender> getCalender() {
+		return calender;
+	}
+	public void setCalender(List<calender> calender) {
+		this.calender = calender;
+	}
 	public int getId() {
 		return id;
 	}
@@ -53,12 +69,6 @@ public class bmsmodel
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getPrra() {
-		return prra;
-	}
-	public void setPrra(String prra) {
-		this.prra = prra;
 	}
 	
 }
